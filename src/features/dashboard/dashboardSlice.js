@@ -7,18 +7,30 @@ export const dashboardSlice = createSlice({
   },
   reducers: {
     setCoins: (state, action) => {
-      state.coins = action.payload;
+      const index = state.coins.findIndex(
+        (coin) => coin.symbol === action.payload.symbol
+      );
+      if (index !== -1) {
+        // If the coin already exists, update its price
+        state.coins[index] = {
+          ...state.coins[index],
+          price: action.payload.price,
+        };
+      } else {
+        // If the coin doesn't exist, add it to the state
+        state.coins.push(action.payload);
+      }
     },
     updateCoin: (state, action) => {
-      state.coins = state.coins.map((coin) =>
-        coin.symbol === action.payload.s
-          ? { ...coin, price: action.payload.p }
-          : coin
+      const index = state.coins.findIndex(
+        (coin) => coin.symbol === action.payload.s
       );
+      if (index !== -1) {
+        state.coins[index] = { ...state.coins[index], price: action.payload.p };
+      }
     },
   },
 });
 
 export const { setCoins, updateCoin } = dashboardSlice.actions;
-
 export default dashboardSlice.reducer;
