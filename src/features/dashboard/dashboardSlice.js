@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const dashboardSlice = createSlice({
-  name: 'dashboard',
+  name: "dashboard",
   initialState: {
     coins: [],
   },
@@ -10,8 +10,10 @@ export const dashboardSlice = createSlice({
       state.coins = action.payload;
     },
     updateCoin: (state, action) => {
-      state.coins = state.coins.map(coin =>
-        coin.symbol === action.payload.s ? { ...coin, price: action.payload.p } : coin
+      state.coins = state.coins.map((coin) =>
+        coin.symbol === action.payload.s
+          ? { ...coin, price: action.payload.p }
+          : coin
       );
     },
   },

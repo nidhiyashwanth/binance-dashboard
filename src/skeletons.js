@@ -1,3 +1,5 @@
+// Will use skeletons to improve UI
+
 export default function DashboardSkeleton() {
     return (
       <>
