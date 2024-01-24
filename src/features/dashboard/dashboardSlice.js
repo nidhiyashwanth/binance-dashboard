@@ -26,9 +26,12 @@ export const dashboardSlice = createSlice({
         (coin) => coin.symbol === action.payload.s
       );
       if (index !== -1) {
-        state.coins[index] = { ...state.coins[index], price: action.payload.p };
+        const newCoins = [...state.coins];
+        newCoins[index] = { ...newCoins[index], price: action.payload.p };
+        return { ...state, coins: newCoins };
       }
-    },
+    }
+    ,
   },
 });
 
