@@ -6,9 +6,7 @@ export const socket = new WebSocket(
 
 export const getSocketByCurrency = (currency, dispatch) => {
   const socket = new WebSocket(
-    `wss://stream.binance.com:9443/ws/${
-      currency ? currency : "ethusdt"
-    }@depth@1000ms`
+    `wss://stream.binance.com:9443/ws/${currency}@ticker`
   );
 
   socket.onopen = () => {
@@ -18,7 +16,7 @@ export const getSocketByCurrency = (currency, dispatch) => {
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     console.log(`Received data for ${currency}:`, data);
-    dispatch(updateCoin({ symbol: currency, price: data.p }));
+    dispatch(updateCoin({ s: currency, p: data.p }));
   };
 
   socket.onclose = () => {
@@ -26,10 +24,4 @@ export const getSocketByCurrency = (currency, dispatch) => {
   };
 
   return socket;
-};
-
-export const getSocketByValue = (value) => {
-  return value
-    ? new WebSocket(`wss://stream.binance.com:9443/ws/${value}t@depth@1000ms`)
-    : socket;
 };
