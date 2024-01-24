@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoins } from "./dashboardSlice";
-import { socket } from "../../api/binance-websocket"; // Import the socket directly
+import { socket } from "../../api/binance-websocket";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
