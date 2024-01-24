@@ -1,24 +1,23 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoins } from "./dashboardSlice";
-import { getSocketByCurrency } from "../../api/binance-websocket";
+import { socket } from "../../api/binance-websocket"; // Import the socket directly
 
-const coinsToFetch = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]; // Example array of coins
 const Dashboard = () => {
   const dispatch = useDispatch();
   const coins = useSelector((state) => state.dashboard.coins);
 
   useEffect(() => {
-    coinsToFetch.forEach((symbol) => {
-      const url = `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setCoins(data));
-          getSocketByCurrency(data.symbol, dispatch);
-        })
-        .catch((error) => console.error("Error:", error));
-    });
+    // Fetch initial BTCUSDT data and set up WebSocket connection
+    const url = `https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(setCoins(data));
+      })
+      .catch((error) => console.error("Error:", error));
+
+    // The WebSocket connection is already set up in binance-websocket.js
   }, [dispatch]);
 
   return (
