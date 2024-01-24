@@ -12,7 +12,7 @@ socket.onopen = () => {
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
   console.log(`Received data for btcusdt:`, data);
-  store.dispatch(updateCoin({ s: 'BTCUSDT', p: data.p }));
+  store.dispatch(updateCoin({ s: 'BTCUSDT', p: data.w }));
 };
 
 socket.onclose = () => {
